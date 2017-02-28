@@ -22,7 +22,7 @@ looper:
 
 	movui r4, 0x5
 	call write_to_jtag
-	movui r4, 0xFF
+	movui r4, 0x81
 	call write_to_jtag
 br looper
 
@@ -52,7 +52,7 @@ handle_steering:
 		movui r4, 0x5
 		call write_to_jtag
 
-		movui r4, 0xFF
+		movui r4, 0x81
 		call write_to_jtag
 
 		br done_handle_steering
