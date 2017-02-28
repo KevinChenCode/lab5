@@ -28,9 +28,9 @@ end:
 
 handle_steering:
 	addi sp, sp, -12
-	stw r16, 8(r12)
-	stw r17, 4(r12)
-	stw ra, 0(r12)
+	stw r16, 8(sp)
+	stw r17, 4(sp)
+	stw ra, 0(sp)
 
 	andi r4, r4, 0x1F
 	mov r16, r4
@@ -73,9 +73,9 @@ handle_steering:
 
 	done_handle_steering:
 
-	ldw r16, 8(r12)
-	ldw r17, 4(r12)
-	ldw ra, 0(r12)
+	ldw r16, 8(sp)
+	ldw r17, 4(sp)
+	ldw ra, 0(sp)
 	addi sp, sp, 12
 
 	ret
