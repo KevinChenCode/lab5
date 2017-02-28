@@ -84,8 +84,9 @@ handle_steering:
 
 
 return_sensor_data:
-	addi sp, sp, -4
+	addi sp, sp, -8
 	stw ra, 0(sp)
+	stw r16, 4(sp)
 
 	movui r4, 0x2
 
@@ -95,8 +96,19 @@ return_sensor_data:
 	# this will put the return packet into r2
 	call read_from_jtag
 
+	call read_from_jtag
+
+	mov r16, r2
+
+	call read_from_jtag
+
+	mov r5, r2
+
+	mov r2, r16
+
 	ldw ra, 0(sp)
-	addi sp, sp, 4
+	ldw r16, 4(sp)
+	addi sp, sp, 8
 
 	ret
 
