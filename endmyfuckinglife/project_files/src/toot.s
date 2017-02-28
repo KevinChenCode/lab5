@@ -4,7 +4,7 @@
 
 _start:
 
-movia, sp, 0x0FFFFF
+movia sp, 0x0FFFFF
 
 movui r4, 0x4
 call write_to_jtag
