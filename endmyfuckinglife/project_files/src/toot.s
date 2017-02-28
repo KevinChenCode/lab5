@@ -19,7 +19,7 @@ looper:
 	mov r4, r2
 
 	call handle_steering
-	
+
 br looper
 
 end:
@@ -49,7 +49,7 @@ handle_steering:
 		movui r4, 0x5
 		call write_to_jtag
 
-		movui r4, -127
+		movui r4, 0xFF
 		call write_to_jtag
 
 		br done_handle_steering
@@ -59,7 +59,7 @@ handle_steering:
 		movui r4, 0x5
 		call write_to_jtag
 
-		movui r4, 127
+		movui r4, 0x7F
 		call write_to_jtag
 
 		br done_handle_steering
