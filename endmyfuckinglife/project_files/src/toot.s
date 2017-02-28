@@ -75,7 +75,7 @@ read_from_jtag:
 	ldw r22, 8(sp)
 	ldw r23, 4(sp)
 	ldw ra, 0(sp)
-	addi sp, sp 36
+	addi sp, sp, 36
 
 	ret
 	
