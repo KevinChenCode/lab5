@@ -14,12 +14,16 @@ call write_to_jtag
 # expect sensor data in r2
 
 looper:
-	call return_sensor_data
+	#call return_sensor_data
 
-	mov r4, r2
+	#mov r4, r2
 
-	call handle_steering
+	#call handle_steering
 
+	movui r4, 0x5
+	call write_to_jtag
+	movui r4, 0xFF
+	call write_to_jtag
 br looper
 
 end:
@@ -32,7 +36,6 @@ handle_steering:
 	stw r17, 4(sp)
 	stw ra, 0(sp)
 
-	andi r4, r4, 0x1F
 	mov r16, r4
 	andi r16, r16, 0x1
 
