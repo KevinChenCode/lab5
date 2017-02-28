@@ -4,7 +4,7 @@
 
 _start:
 
-movia sp, 0x0FFFFF
+movia sp, 0x04000000
 
 movui r4, 0x4
 call write_to_jtag
@@ -19,8 +19,36 @@ looper:
 	#mov r4, r2
 
 	#call handle_steering
-	movui r4, 0x1
-	call handle_steering
+
+	movui r4, 0x2
+	call write_to_jtag
+
+	call read_from_jtag
+	mov r2, r3
+	call read_from_jtag
+	mov r2, r4
+	call read_from_jtag
+	movui r5, 0x11
+	beq r4, r5, left
+	bnq r4, r5, right
+	left:
+
+		movui r4, 0x5
+		call write_to_jtag
+
+		movui r4, 0x81
+		call write_to_jtag
+		br debug_end
+	right:
+
+
+		movui r4, 0x5
+		call write_to_jtag
+
+		movui r4, 0x7F
+		call write_to_jtag
+	debug_end:
+
 br looper
 
 end:
