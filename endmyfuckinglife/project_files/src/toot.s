@@ -5,6 +5,14 @@
 _start:
 
 
+movui r4, 0x4
+call write_to_jtag
+movui r4, 0x7F 
+call write_to_jtag
+
+end:
+	br end
+
 write_to_jtag:
 	addi sp, sp, -36
 	stw r16, 32(sp)
