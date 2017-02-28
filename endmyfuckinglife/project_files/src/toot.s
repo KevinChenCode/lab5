@@ -102,7 +102,7 @@ return_sensor_data:
 
 	call read_from_jtag
 
-	mov r5, r2
+	mov r3, r2
 
 	mov r2, r16
 
