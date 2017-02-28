@@ -11,8 +11,95 @@ call write_to_jtag
 movui r4, 0x7F 
 call write_to_jtag
 
+# expect sensor data in r2
+
+looper:
+	call return_sensor_data
+
+	mov r4, r2
+
+	call handle_steering
+	
+br looper
+
 end:
 	br end
+
+
+handle_steering:
+	addi sp, sp, -12
+	stw r16, 8(r12)
+	stw r17, 4(r12)
+	stw ra, 0(r12)
+
+	andi r4, r4, 0x1F
+	mov r16, r4
+	andi r16, r16, 0x1
+
+	beq r16, r0, steer_right
+
+	mov r16, r4
+	andi r16, r16, 0x10
+
+	beq r16, r0, steer_left
+
+	br dont_steer
+
+	steer_left:
+		movui r4, 0x5
+		call write_to_jtag
+
+		movui r4, -127
+		call write_to_jtag
+
+		br done_handle_steering
+
+	steer_right:
+
+		movui r4, 0x5
+		call write_to_jtag
+
+		movui r4, 127
+		call write_to_jtag
+
+		br done_handle_steering
+
+	dont_steer:
+		movui r4, 0x5
+		call write_to_jtag
+
+		movui r4, 0
+		call write_to_jtag
+
+	done_handle_steering:
+
+	ldw r16, 8(r12)
+	ldw r17, 4(r12)
+	ldw ra, 0(r12)
+	addi sp, sp, 12
+
+	ret
+
+
+
+
+return_sensor_data:
+	addi sp, sp, -4
+	stw ra, 0(sp)
+
+	movui r4, 0x2
+
+	# this will take r4 and write it to the jtag
+	call write_to_jtag
+
+	# this will put the return packet into r2
+	call read_from_jtag
+
+	ldw ra, 0(sp)
+	addi sp, sp, 4
+
+	ret
+
 
 write_to_jtag:
 	addi sp, sp, -36
